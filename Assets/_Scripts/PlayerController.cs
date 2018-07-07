@@ -18,11 +18,24 @@ public class PlayerController : MonoBehaviour {
 
     private void Movement()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float veticalInput = Input.GetAxis("Vertical");
+        if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
-            transform.Translate(Vector3.up * Time.deltaTime * speed * veticalInput);
+            transform.Translate(Vector2.right * speed * Time.deltaTime);
+        }
+
+        else if (Input.GetKey(KeyCode.A))
+        {
+            transform.Translate(Vector2.left * speed * Time.deltaTime);
+        }
+
+        else if (Input.GetKey(KeyCode.S))
+        {
+            transform.Translate(Vector2.down * speed * Time.deltaTime);
+        }
+
+        else if (Input.GetKey(KeyCode.W))
+        {
+            transform.Translate(Vector2.up * speed * Time.deltaTime);
         }
     }
 

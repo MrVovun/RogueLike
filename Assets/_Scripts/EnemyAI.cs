@@ -4,40 +4,43 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour {
 
-    private PlayerController playerController;
     private GameObject player;
 
     public float radius;
     public int price;
     public int speed;
+    private bool firstTime;
 
     void Start()
     {
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         player = GameObject.FindGameObjectWithTag("Player");
+        firstTime = true;
     }
 
     void Update()
     {
-        float distanceBetween = Vector2.Distance (this.transform.position, player.transform.position);
-        if (distanceBetween < radius)
+        float distanceBetween = Vector2.Distance(this.transform.position, player.transform.position);
+        if (distanceBetween < radius && firstTime == true)
         {
             MoveTo();
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Player")
+        else if (distanceBetween > radius && firstTime == false)
         {
-            playerController.money = playerController.money - price;
-            //wait for some time
-            //look for player again
+            firstTime = true;
         }
     }
 
     private void MoveTo()
     {
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, Time.deltaTime * speed);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("We collided");
+            firstTime = false;
+        }
     }
 }

@@ -282,6 +282,16 @@ Prefab:
       propertyPath: drawGizmos
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114766425175629618, guid: 039f4ee64246a964b9230a3755c2c407,
+        type: 2}
+      propertyPath: radius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114766425175629618, guid: 039f4ee64246a964b9230a3755c2c407,
+        type: 2}
+      propertyPath: lerp
+      value: 
+      objectReference: {fileID: 283415816}
     m_RemovedComponents:
     - {fileID: 114983275062833062, guid: 039f4ee64246a964b9230a3755c2c407, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 039f4ee64246a964b9230a3755c2c407, type: 2}
@@ -318,7 +328,7 @@ MonoBehaviour:
   version: 2
   repathRate: 0.5
   canSearch: 1
-  canMove: 1
+  canMove: 0
   speed: 3
   enableRotation: 0
   rotationIn2D: 0
@@ -792,6 +802,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 406444827}
+--- !u!1 &1118934371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1118934372}
+  - component: {fileID: 1118934373}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: GameManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1118934372
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1118934371}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1118934373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1118934371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8c9d21f0a9d784a9cbcb174de9f30c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pause: 0
 --- !u!1 &1985456349 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1509927344073768, guid: 8ed75bf5bf97d4e4f8881c74ae3ef0db,
@@ -861,7 +912,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4102524836769924, guid: 8ed75bf5bf97d4e4f8881c74ae3ef0db, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4102524836769924, guid: 8ed75bf5bf97d4e4f8881c74ae3ef0db, type: 2}
       propertyPath: m_LocalPosition.y

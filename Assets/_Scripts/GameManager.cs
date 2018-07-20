@@ -47,23 +47,16 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public bool pause;
+    public bool pause = false;
 
     private void Start()
     {
-        pause = false;
+
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && pause == false)
-        {
-            pause = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.P) && pause == true)
-        {
-            pause = false;
-        }
+
     }
 
     public void Pause(bool needPause)

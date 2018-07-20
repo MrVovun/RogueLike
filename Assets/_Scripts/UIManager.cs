@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.UI.CoroutineTween;
+using TMPro;
 
 public class UIManager : MonoBehaviour {
 
-    private PlayerController player;
+    private PlayerController playerController;
     public Text moneyText;
 
-    void Start ()
+    void OnEnable ()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 	}
 
 	void Update ()
     { 
-        moneyText.text = "Money: " + player.money;
+        moneyText.text = "Money: " + playerController.money;
     }
 }

@@ -8,21 +8,21 @@ public class EnemyAI : MonoBehaviour
 {
 
     public float radius;
-    public bool firstTime;
+    public bool firstTimeEntering = true;
     public string fullString;
 
     private int distanceBetween;
     private GameObject player;
-    [SerializeField]
-    private AILerp lerp;
 
     public Canvas myCanvas;
     public Text myText;
 
-    void Start()
+    [SerializeField]
+    private AILerp lerp;
+
+    void OnEnable()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        firstTime = true;
         lerp.canMove = false;
         myCanvas.gameObject.SetActive(false);
     }
@@ -36,14 +36,13 @@ public class EnemyAI : MonoBehaviour
         }
 
         float distanceBetween = Vector2.Distance(transform.position, player.transform.position);
-
-        if (distanceBetween < radius && firstTime == true)
+        if (distanceBetween < radius && firstTimeEntering == true)
         {
             lerp.canMove = true;
         }
-        else if (distanceBetween > radius && firstTime == false)
+        else if (distanceBetween > radius && firstTimeEntering == false)
         {
-            firstTime = true;
+            firstTimeEntering = true;
         }
 
     }
@@ -53,9 +52,8 @@ public class EnemyAI : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             myCanvas.gameObject.SetActive(true);
-            GameManager.Instance.Pause(true);
-            Debug.Log("We collided");
-            firstTime = false;
+            Debug.Log(this.gameObject.name + "We collided");
+            firstTimeEntering = false;
             lerp.canMove = false;
             StartCoroutine(ShowText());
         }

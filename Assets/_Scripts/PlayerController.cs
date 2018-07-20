@@ -13,10 +13,10 @@ public class PlayerController : MonoBehaviour {
     public Canvas myCanvas;
     public Text myText;
 
-    void Start ()
+    void OnEnable ()
     {
-        playerCanMove = true;
         myCanvas.gameObject.SetActive(false);
+        playerCanMove = true;
     }
 	
 	void Update ()
@@ -27,8 +27,8 @@ public class PlayerController : MonoBehaviour {
             return;
         }
         if (playerCanMove == true)
-        { 
-        Movement();
+        {
+            Movement();
         }
     }
 
@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour {
         {
             myCanvas.gameObject.SetActive(true);
             StartCoroutine(ShowText());
+            GameManager.Instance.Pause(true);
         }
     }
 

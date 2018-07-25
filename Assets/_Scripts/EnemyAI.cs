@@ -49,7 +49,7 @@ public class EnemyAI : MonoBehaviour
         if (dialogueLoader.dialogues.speaker == gameObject.name)
         {
             Debug.Log ("Ti pidor");
-            fullString = dialogueLoader.dialogues.question[1];
+            fullString = dialogueLoader.dialogues.question[Random.Range (0, dialogueLoader.dialogues.question.Count)];
         }
     }
 

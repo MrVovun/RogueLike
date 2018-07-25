@@ -381,6 +381,16 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 2030697190}
+    - target: {fileID: 114766425175629618, guid: 039f4ee64246a964b9230a3755c2c407,
+        type: 2}
+      propertyPath: fullString
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114766425175629618, guid: 039f4ee64246a964b9230a3755c2c407,
+        type: 2}
+      propertyPath: sellerName
+      value: enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 039f4ee64246a964b9230a3755c2c407, type: 2}
   m_IsPrefabAsset: 0
@@ -897,8 +907,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogues:
-    question: 
-    answer: 
+    speaker: 
+    question: []
+    answer: []
 --- !u!1 &1265312656
 GameObject:
   m_ObjectHideFlags: 0

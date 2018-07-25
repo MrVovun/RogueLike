@@ -13,6 +13,7 @@ public class EnemyAI : MonoBehaviour
 
     private int distanceBetween;
     private GameObject player;
+    private DialogueLoader dialogueLoader;
 
     public Canvas myCanvas;
     public Text myText;
@@ -20,11 +21,12 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     private AILerp lerp;
 
-    void OnEnable()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         lerp.canMove = false;
         myCanvas.gameObject.SetActive(false);
+        dialogueLoader = GameObject.FindGameObjectWithTag("GameManager").GetComponent<DialogueLoader>();
     }
 
     void Update()
@@ -44,7 +46,11 @@ public class EnemyAI : MonoBehaviour
         {
             firstTimeEntering = true;
         }
-
+        if (dialogueLoader.dialogues.speaker == gameObject.name)
+        {
+            Debug.Log ("Ti pidor");
+            fullString = dialogueLoader.dialogues.question[1];
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

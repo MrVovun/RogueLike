@@ -8,14 +8,6 @@ public class DialogueLoader : MonoBehaviour {
 	void Awake()
 	{
 		string loadedDialogue = JsonFileReader.JsonLoader("Dialogues/test.json");
-		dialogues =JsonUtility.FromJson<Dialogue>(loadedDialogue);
-	}
-
-	void Start () {
-		
-	}
-	
-	void Update () {
-		
+		dialogues = JsonUtility.FromJson<Dialogue>(loadedDialogue);
 	}
 }

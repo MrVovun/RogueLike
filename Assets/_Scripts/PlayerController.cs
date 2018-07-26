@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour {
     public Canvas myCanvas;
     public Text myText;
 
-    void OnEnable ()
+    private DialogueLoader dialogueLoader;
+
+    void Awake ()
     {
         myCanvas.gameObject.SetActive(false);
         playerCanMove = true;
@@ -55,14 +57,12 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void Say(Dialogue dialogue)
     {
-        if (collision.gameObject.tag == "Enemy")
-        {
+            fullString = dialogue.answer[Random.Range(0, dialogue.answer.Count)];
             myCanvas.gameObject.SetActive(true);
             StartCoroutine(ShowText());
             GameManager.Instance.Pause(true);
-        }
     }
 
     IEnumerator ShowText()

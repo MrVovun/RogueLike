@@ -13,7 +13,6 @@ public class EnemyAI : MonoBehaviour
 
     private int distanceBetween;
     private GameObject player;
-    private DialogueLoader dialogueLoader;
 
     public Canvas myCanvas;
     public Text myText;
@@ -26,7 +25,6 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         lerp.canMove = false;
         myCanvas.gameObject.SetActive(false);
-        dialogueLoader = GameObject.FindGameObjectWithTag("GameManager").GetComponent<DialogueLoader>();
     }
 
     void Update()
@@ -46,17 +44,15 @@ public class EnemyAI : MonoBehaviour
         {
             firstTimeEntering = true;
         }
-        if (dialogueLoader.dialogues.speaker == gameObject.name)
-        {
-            Debug.Log ("Ti pidor");
-            fullString = dialogueLoader.dialogues.question[Random.Range (0, dialogueLoader.dialogues.question.Count)];
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
+            Dialogue dialogue = DialogueLoader.Instance.DialogueSummon(gameObject.name);
+            player.GetComponent<PlayerController>().Say(dialogue);
+            fullString = dialogue.question[Random.Range (0, dialogue.question.Count)];
             myCanvas.gameObject.SetActive(true);
             Debug.Log(this.gameObject.name + "We collided");
             firstTimeEntering = false;

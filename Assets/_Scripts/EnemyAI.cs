@@ -1,6 +1,7 @@
 ﻿using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +16,7 @@ public class EnemyAI : MonoBehaviour
     private GameObject player;
 
     public Canvas myCanvas;
-    public Text myText;
+    public TextMeshProUGUI myText;
 
     [SerializeField]
     private AILerp lerp;
@@ -34,7 +35,6 @@ public class EnemyAI : MonoBehaviour
             lerp.canMove = false;
             return;
         }
-
         float distanceBetween = Vector2.Distance(transform.position, player.transform.position);
         if (distanceBetween < radius && firstTimeEntering == true)
         {

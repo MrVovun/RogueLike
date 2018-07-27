@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class PlayerController : MonoBehaviour {
     public string fullString;
 
     public Canvas myCanvas;
-    public Text myText;
+    public TextMeshProUGUI myText;
 
     private DialogueLoader dialogueLoader;
 
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour {
             Movement();
         }
     }
-
+    
     private void Movement()
     {
         if (Input.GetKey(KeyCode.D))
@@ -59,10 +60,10 @@ public class PlayerController : MonoBehaviour {
 
     public void Say(Dialogue dialogue)
     {
-            fullString = dialogue.answer[Random.Range(0, dialogue.answer.Count)];
-            myCanvas.gameObject.SetActive(true);
-            StartCoroutine(ShowText());
-            GameManager.Instance.Pause(true);
+        fullString = dialogue.answer[Random.Range(0, dialogue.answer.Count)];
+        myCanvas.gameObject.SetActive(true);
+        StartCoroutine(ShowText());
+        GameManager.Instance.Pause(true);
     }
 
     IEnumerator ShowText()

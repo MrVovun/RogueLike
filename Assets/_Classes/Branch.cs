@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Dialogue : Dictionary<string, Branch> {
-	
+public class Branch{
+	public string speaker;
+	public DialogueMessage[] dialogueMessages;
 }

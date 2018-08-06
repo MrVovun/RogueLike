@@ -1,15 +1,38 @@
 {
-    "speaker": "Enemy",
-    "question":
-    [
-        "do you suck dicks?",
-        "english, motherfucker, do you speak it?",
-        "that's a lot of fish!"
-    ],
-    "answer":
-    [
-        "my name's forest, forest gump",
-        "get to the choppa!",
-        "hasta la vista, baby"
-    ]
+    "branch0":
+    {
+        "speaker" : "Enemy",
+        "dialogueMessages":
+        [
+            {"dialogueMessage": "question1branch1", "branch": "branch1"},
+            {"dialogueMessage": "question2branch1", "branch": "branch1"},
+            {"dialogueMessage": "question3branch1", "branch": "branch1"}
+        ]
+    },
+    "branch1":
+    {
+        "speaker" : "Player",
+        "dialogueMessages":
+        [
+            {"dialogueMessage": "answer1branch2", "branch": "branch2"},
+            {"dialogueMessage": "answer2null", "branch": null}
+        ]
+    },
+    "branch2":
+    {
+        "speaker" : "Enemy",
+        "dialogueMessages":
+        [
+            {"dialogueMessage": "question4branch3", "branch": "branch3"},
+            {"dialogueMessage": "question5branch3", "branch": "branch3"}
+        ]
+    },
+    "branch3":
+    {
+        "speaker" : "Player",
+        "dialogueMessages":
+        [
+            {"dialogueMessage": "answer4null", "branch": null}
+        ]
+    }
 }

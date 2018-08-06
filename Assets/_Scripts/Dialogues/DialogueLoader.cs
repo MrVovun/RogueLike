@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class DialogueLoader {
@@ -42,7 +44,7 @@ public class DialogueLoader {
 		else
 		{
 			string loadedDialogue = JsonFileReader.JsonLoader("Dialogues/" + enemyName + ".json");
-			Dialogue dialogue = JsonUtility.FromJson<Dialogue>(loadedDialogue);
+            Dialogue dialogue = JsonConvert.DeserializeObject<Dialogue>(loadedDialogue);
 			cache.Add(enemyName, dialogue);
 			return dialogue;
 		}

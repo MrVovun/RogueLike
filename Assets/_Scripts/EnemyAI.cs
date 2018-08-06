@@ -10,13 +10,9 @@ public class EnemyAI : MonoBehaviour
 
     public float radius;
     public bool firstTimeEntering = true;
-    public string fullString;
 
     private int distanceBetween;
     private GameObject player;
-
-    public Canvas myCanvas;
-    public TextMeshProUGUI myText;
 
     [SerializeField]
     private AILerp lerp;
@@ -25,7 +21,6 @@ public class EnemyAI : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         lerp.canMove = false;
-        myCanvas.gameObject.SetActive(false);
     }
 
     void Update()
@@ -50,24 +45,14 @@ public class EnemyAI : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            List<GameObject> newlist = new List<GameObject>{player, gameObject};
             Dialogue dialogue = DialogueLoader.Instance.DialogueSummon(gameObject.name);
-            player.GetComponent<PlayerController>().Say(dialogue);
-            fullString = dialogue.question[Random.Range (0, dialogue.question.Count)];
-            myCanvas.gameObject.SetActive(true);
-            Debug.Log(this.gameObject.name + "We collided");
+            GameManager.Instance.Pause(true);
+            DialogueManager.Instance.StartDialogue(dialogue,newlist);
             firstTimeEntering = false;
             lerp.canMove = false;
-            StartCoroutine(ShowText());
         }
     }
-    IEnumerator ShowText()
-    {
-        float charTime = 2.0f / fullString.Length;
-        myText.text = string.Empty;
-        foreach (char c in fullString)
-        {
-            myText.text += c;
-            yield return new WaitForSeconds(charTime);
-        }
-    }
+
+
 }

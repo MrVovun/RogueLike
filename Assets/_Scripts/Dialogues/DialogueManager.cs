@@ -32,29 +32,31 @@ public class DialogueManager {
 
 	public void StartDialogue(Dialogue dialogue, List<GameObject> listOfSpeakers)
 	{
-        string branch = "branch0";
+        GameManager.Instance.StartCoroutine(ProcessBranch(dialogue, listOfSpeakers, "branch0"));   
+	}
+
+    private IEnumerator ProcessBranch(Dialogue dialogue, List<GameObject> listOfSpeakers, string branch) {
         DialogueMessage[] dialoguePiece;
         DialogueMessage dialogueLine;
-        
-        while(true)
-        {
-            Branch branchObj;
-            dialogue.TryGetValue(branch, out branchObj);
-            dialoguePiece = branchObj.dialogueMessages;
 
-            foreach (GameObject speaker in listOfSpeakers)
+        Branch branchObj;
+        if (branch == null)
+        {
+            yield break;
+        }
+        dialogue.TryGetValue(branch, out branchObj);
+        dialoguePiece = branchObj.dialogueMessages;
+
+        foreach (GameObject speaker in listOfSpeakers)
+        {
+            if (speaker.name == branchObj.speaker)
             {
-                if (speaker.name == branchObj.speaker)
+                dialogueLine = speaker.GetComponent<DialogueSpeaker>().PickLine(dialoguePiece);
+                speaker.GetComponent<DialogueSpeaker>().Say(dialogueLine.dialogueMessage, delegate()
                 {
-                    dialogueLine = speaker.GetComponent<DialogueSpeaker>().PickLine(dialoguePiece);
-                    branch = dialogueLine.branch;
-                    speaker.GetComponent<DialogueSpeaker>().Say(dialogueLine.dialogueMessage);
-                    if (branch == null)
-                    {
-                        return;
-                    }
-                }
+                    GameManager.Instance.StartCoroutine(ProcessBranch(dialogue, listOfSpeakers, dialogueLine.branch));
+                });           
             }
         }
-	}
+    }
 }

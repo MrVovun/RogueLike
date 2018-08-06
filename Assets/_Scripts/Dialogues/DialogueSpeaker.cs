@@ -15,14 +15,14 @@ public class DialogueSpeaker : MonoBehaviour {
 		myCanvas.gameObject.SetActive(false);
 	}
 
-    public void Say(string message)
+    public void Say(string message, System.Action action)
     {
         fullString = message;
         myCanvas.gameObject.SetActive(true);
-        StartCoroutine(ShowText());
+        StartCoroutine(ShowText(action));
     }
 
-    IEnumerator ShowText()
+    IEnumerator ShowText(System.Action action)
     {
         float charTime = 0.1f;
         myText.text = string.Empty;
@@ -31,6 +31,7 @@ public class DialogueSpeaker : MonoBehaviour {
             myText.text += c;
             yield return new WaitForSeconds(charTime);
 		}
+		action.Invoke();
     }
 
 	public DialogueMessage PickLine(DialogueMessage[] arrayOfLines)

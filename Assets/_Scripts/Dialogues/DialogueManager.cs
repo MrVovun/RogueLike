@@ -52,7 +52,7 @@ public class DialogueManager {
             if (speaker.name == branchObj.speaker)
             {
                 dialogueLine = speaker.GetComponent<DialogueSpeaker>().PickLine(dialoguePiece);
-                speaker.GetComponent<DialogueSpeaker>().Say(dialogueLine.dialogueMessage, delegate()
+                speaker.GetComponent<DialogueSpeaker>().Say(dialogueLine.dialogueMessage, ()=>
                 {
                     GameManager.Instance.StartCoroutine(ProcessBranch(dialogue, listOfSpeakers, dialogueLine.branch));
                 });           

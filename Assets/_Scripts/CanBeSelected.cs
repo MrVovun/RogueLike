@@ -11,7 +11,7 @@ public class CanBeSelected : MonoBehaviour {
 	{
 		if (isSelected == true)
 		{
-			Debug.Log ("Ti pidor");
+			Debug.Log (gameObject + "Ti pidor");
 		}
 	}
 }

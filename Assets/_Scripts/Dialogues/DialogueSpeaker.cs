@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 
 public class DialogueSpeaker : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class DialogueSpeaker : MonoBehaviour
     public Canvas myCanvas;
     public TextMeshProUGUI myText;
     public float charTime = 0.1f;
-    public TextMeshProUGUI answerButton;
+    public GameObject answerButton;
 
     private List<GameObject> listOfAnswers = new List<GameObject>();
 
@@ -24,6 +25,7 @@ public class DialogueSpeaker : MonoBehaviour
     {
         for (int i = 0; i < listOfAnswers.Count; i++)
         {
+            listOfAnswers[0].GetComponent<CanBeSelected>().isSelected = true;
             if (listOfAnswers[i].GetComponent<CanBeSelected>().isSelected == true && Input.GetKey(KeyCode.S))
             {
                 listOfAnswers[i].GetComponent<CanBeSelected>().isSelected = false;
@@ -68,15 +70,21 @@ public class DialogueSpeaker : MonoBehaviour
         }
         else if (gameObject.tag == "Player")
         {
+            Vector3 buttonOffset = new Vector2 (0, -200);
+            //fill arrayOfLines with answerButtons equal to arrayOfLines.Length
+            //spawn with offset
             for (int i = 0; i < arrayOfLines.Length; i++)
             {
-                TextMeshProUGUI answer;
-                Vector3 buttonOffset = new Vector2 (0, -200);
 
-                answer = Instantiate(answerButton, transform.position + buttonOffset, transform.rotation) as TextMeshProUGUI;
-                answer.text = arrayOfLines[i].dialogueMessage;
-                //get array from update
+                answerButton.GetComponent<TextMeshProUGUI>().text = arrayOfLines[i].dialogueMessage;
+
+                if (listOfAnswers[i].GetComponent<CanBeSelected>().isSelected == true && Input.GetKey(KeyCode.Space))
+                {
+                    //choose that answer
+                    //return it below
+                }
             }
+            return arrayOfLines[someAnswerThatPlayerSelected];
         }
         else
         {

@@ -4,14 +4,41 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CanBeSelected : MonoBehaviour {
-	public bool isSelected;
+public class CanBeSelected : MonoBehaviour
+{
 
-	public void HighlightSelected()
-	{
-		if (isSelected == true)
-		{
-			Debug.Log (gameObject + "Ti pidor");
-		}
-	}
+    private bool _isSelected;
+
+    public bool isSelected
+    {
+        get
+        {
+            return _isSelected;
+        }
+        set
+        {
+            _isSelected = value;
+            if (_isSelected)
+            {
+                HighlightSelected();
+            }
+            else
+            {
+                DarkLightSelected();
+            }
+        }
+    }
+
+    public DialogueMessage myDialogue;
+
+    private void HighlightSelected()
+    {
+        this.GetComponent<TextMeshProUGUI>().color = Color.yellow;
+    }
+
+    private void DarkLightSelected()
+    {
+        this.GetComponent<TextMeshProUGUI>().color = Color.white;
+    }
+
 }

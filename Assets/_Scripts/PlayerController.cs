@@ -8,44 +8,31 @@ public class PlayerController : MonoBehaviour {
     public int money;
     public bool playerCanMove;
 
-    void Awake ()
-    {
+    void Awake () {
         playerCanMove = true;
     }
-	
-	void Update ()
-    {
-        if (GameManager.Instance.pause)
-        {
+
+    void Update () {
+        if (GameManager.Instance.pause == true) {
             playerCanMove = false;
-            return;
+        } else if (GameManager.Instance.pause == false) {
+            playerCanMove = true;
         }
-        if (playerCanMove == true)
-        {
-            Movement();
+
+        if (playerCanMove == true) {
+            Movement ();
         }
     }
-    
-    private void Movement()
-    {
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
-        }
 
-        else if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(Vector2.left * speed * Time.deltaTime);
-        }
-
-        else if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(Vector2.down * speed * Time.deltaTime);
-        }
-
-        else if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(Vector2.up * speed * Time.deltaTime);
+    private void Movement () {
+        if (Input.GetKey (KeyCode.D)) {
+            transform.Translate (Vector2.right * speed * Time.deltaTime);
+        } else if (Input.GetKey (KeyCode.A)) {
+            transform.Translate (Vector2.left * speed * Time.deltaTime);
+        } else if (Input.GetKey (KeyCode.S)) {
+            transform.Translate (Vector2.down * speed * Time.deltaTime);
+        } else if (Input.GetKey (KeyCode.W)) {
+            transform.Translate (Vector2.up * speed * Time.deltaTime);
         }
     }
 }

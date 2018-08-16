@@ -39,46 +39,29 @@ public class DialogueManager {
     }
 
     private IEnumerator ProcessBranch (Dialogue dialogue, List<GameObject> listOfSpeakers, string branch) {
-        DialogueMessage[] dialoguePiece;
-        DialogueMessage dialogueLine;
-
         Branch branchObj;
         if (branch == null) {
             yield break;
         }
         dialogue.TryGetValue (branch, out branchObj);
-        dialoguePiece = branchObj.dialogueMessages;
+        DialogueMessage[] dialoguePiece = branchObj.dialogueMessages;
 
         foreach (GameObject speaker in listOfSpeakers) {
             if (speaker.name == branchObj.speaker) {
-                dialogueLine = speaker.GetComponent<DialogueSpeaker> ().PickLine (dialoguePiece);
-                bool needWait = speaker.tag == "Player";
+                Action<DialogueMessage> onAnswerPicked = null;
 
-                Action doMyShit = null;
-
-                doMyShit = () => {
-                    speaker.GetComponent<DialogueSpeaker> ().OnAnswerConfirmed -= doMyShit;
-                    if (needWait) {
-                        dialogueLine = speaker.GetComponent<DialogueSpeaker> ().selectedAnswer;
-                        if (dialogueLine == null) {
-                            Debug.LogError ("VOVUN's CODE IS SHIT");
-                        }
-                    }
-                    speaker.GetComponent<DialogueSpeaker> ().Say (dialogueLine.dialogueMessage, () => {
-                        GameManager.Instance.StartCoroutine (ProcessBranch (dialogue, listOfSpeakers, dialogueLine.branch));
-                        if (dialogueLine.branch == null) {
+                onAnswerPicked = (DialogueMessage message) => {
+                    speaker.GetComponent<DialogueSpeaker> ().OnAnswerConfirmed -= onAnswerPicked;
+                    speaker.GetComponent<DialogueSpeaker> ().Say (message.dialogueMessage, () => {
+                        GameManager.Instance.StartCoroutine (ProcessBranch (dialogue, listOfSpeakers, message.branch));
+                        if (message.branch == null) {
                             EndDialogue (listOfSpeakers);
                         }
                     });
                 };
 
-                if (needWait) {
-                    speaker.GetComponent<DialogueSpeaker> ().OnAnswerConfirmed += doMyShit;
-                    continue;
-                }
-
-                doMyShit.Invoke ();
-
+                speaker.GetComponent<DialogueSpeaker> ().OnAnswerConfirmed += onAnswerPicked;
+                speaker.GetComponent<DialogueSpeaker> ().PickLine (dialoguePiece);
             }
         }
     }

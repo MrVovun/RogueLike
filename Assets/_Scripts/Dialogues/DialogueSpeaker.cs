@@ -20,7 +20,7 @@ public class DialogueSpeaker : MonoBehaviour {
     private bool playerTimeIsUp = false;
     private bool choosingMode = false;
 
-    public event Action OnAnswerConfirmed;
+    public event Action<DialogueMessage> OnAnswerConfirmed;
 
     public DialogueMessage selectedAnswer {
         get {
@@ -55,7 +55,7 @@ public class DialogueSpeaker : MonoBehaviour {
 
         if (Input.GetKeyDown (KeyCode.Space)) {
             if (OnAnswerConfirmed != null) {
-                OnAnswerConfirmed.Invoke ();
+                OnAnswerConfirmed.Invoke (selectedAnswer);
                 choosingMode = false;
 
                 foreach (var item in listOfAnswers) {
@@ -64,13 +64,14 @@ public class DialogueSpeaker : MonoBehaviour {
                 listOfAnswers.Clear ();
             }
         }
-        //if playertimeisup == true
-        //select random answer
     }
 
-    IEnumerator WaitForAnswer () {
+    IEnumerator WaitForAnswer (DialogueMessage[] arrayOfLines) {
         yield return new WaitForSeconds (defaultWaitTime);
         playerTimeIsUp = true;
+        if (OnAnswerConfirmed != null) {
+            OnAnswerConfirmed.Invoke (arrayOfLines[UnityEngine.Random.Range (0, arrayOfLines.Length)]);
+        }
         Debug.Log ("Player's time is up!");
     }
 
@@ -96,27 +97,23 @@ public class DialogueSpeaker : MonoBehaviour {
         action.Invoke ();
     }
 
-    public DialogueMessage PickLine (DialogueMessage[] arrayOfLines) {
+    public void PickLine (DialogueMessage[] arrayOfLines) {
         if (gameObject.tag == "Enemy") {
-            return arrayOfLines[UnityEngine.Random.Range (0, arrayOfLines.Length)];
+            OnAnswerConfirmed.Invoke (arrayOfLines[UnityEngine.Random.Range (0, arrayOfLines.Length)]);
         } else if (gameObject.tag == "Player") {
-
+            StartCoroutine (WaitForAnswer (arrayOfLines));
+            choosingMode = true;
+            myCanvas.gameObject.SetActive (true);
             for (int i = 0; i < arrayOfLines.Length; i++) {
                 GameObject chosenButton = Instantiate (answerButton, new Vector2 (0, 0), Quaternion.identity, myCanvas.transform);
                 chosenButton.GetComponent<TextMeshProUGUI> ().text = arrayOfLines[i].dialogueMessage;
-                choosingMode = true;
-                StartCoroutine (WaitForAnswer ());
-                myCanvas.gameObject.SetActive (true);
-
                 if (i == 0) {
                     chooseButton (chosenButton);
                 }
                 chosenButton.GetComponent<CanBeSelected> ().myDialogue = arrayOfLines[i];
                 listOfAnswers.Add (chosenButton);
             }
-            return null;
-        } else {
-            return null;
+            StopCoroutine (WaitForAnswer (arrayOfLines));
         }
     }
 

@@ -54,24 +54,26 @@ public class DialogueSpeaker : MonoBehaviour {
         }
 
         if (Input.GetKeyDown (KeyCode.Space)) {
-            if (OnAnswerConfirmed != null) {
-                OnAnswerConfirmed.Invoke (selectedAnswer);
-                choosingMode = false;
+            confirmAnswer (selectedAnswer);
+        }
+    }
 
-                foreach (var item in listOfAnswers) {
-                    Destroy (item);
-                }
-                listOfAnswers.Clear ();
+    private void confirmAnswer (DialogueMessage selectedAnswer) {
+        if (OnAnswerConfirmed != null) {
+            OnAnswerConfirmed.Invoke (selectedAnswer);
+            choosingMode = false;
+
+            foreach (var item in listOfAnswers) {
+                Destroy (item);
             }
+            listOfAnswers.Clear ();
         }
     }
 
     IEnumerator WaitForAnswer (DialogueMessage[] arrayOfLines) {
         yield return new WaitForSeconds (defaultWaitTime);
         playerTimeIsUp = true;
-        if (OnAnswerConfirmed != null) {
-            OnAnswerConfirmed.Invoke (arrayOfLines[UnityEngine.Random.Range (0, arrayOfLines.Length)]);
-        }
+        confirmAnswer (arrayOfLines[UnityEngine.Random.Range (0, arrayOfLines.Length)]);
         Debug.Log ("Player's time is up!");
     }
 
@@ -104,6 +106,7 @@ public class DialogueSpeaker : MonoBehaviour {
             StartCoroutine (WaitForAnswer (arrayOfLines));
             choosingMode = true;
             myCanvas.gameObject.SetActive (true);
+            arrayOfLines.Shuffle ();
             for (int i = 0; i < arrayOfLines.Length; i++) {
                 GameObject chosenButton = Instantiate (answerButton, new Vector2 (0, 0), Quaternion.identity, myCanvas.transform);
                 chosenButton.GetComponent<TextMeshProUGUI> ().text = arrayOfLines[i].dialogueMessage;

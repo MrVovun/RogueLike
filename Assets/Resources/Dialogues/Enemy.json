@@ -1,38 +1,121 @@
 {
-    "branch0":
-    {
-        "speaker" : "Enemy",
-        "dialogueMessages":
-        [
-            {"dialogueMessage": "question1branch1", "branch": "branch1"},
-            {"dialogueMessage": "question2branch1", "branch": "branch1"},
-            {"dialogueMessage": "question3branch1", "branch": "branch1"}
+    "branch0": {
+        "speaker": "Enemy",
+        "dialogueMessages": [
+            {
+                "dialogueMessage": "We have a special offer for Boots of Speed today!",
+                "branch": "branch1"
+            },
+            {
+                "dialogueMessage": "Try out our new Boots of Speed!",
+                "branch": "branch1"
+            },
+            {
+                "dialogueMessage": "Interested in something specific? Boots of speed is a good option!",
+                "branch": "branch1"
+            },
+            {
+                "dialogueMessage": "I think we have just what you need - Boots of Speed.",
+                "branch": "branch1"
+            },
+            {
+                "dialogueMessage": "Boots of Speed will fit everything, even you!",
+                "branch": "branch1"
+            }
         ]
     },
-    "branch1":
-    {
-        "speaker" : "Player",
-        "dialogueMessages":
-        [
-            {"dialogueMessage": "answer1branch2", "branch": "branch2"},
-            {"dialogueMessage": "answer2null", "branch": null}
+    "branch1": {
+        "speaker": "Player",
+        "dialogueMessages": [
+            {
+                "dialogueMessage": "Uhm... I guess?",
+                "branch": "branch2"
+            },
+            {
+                "dialogueMessage": "It's too expensive for me",
+                "branch": "branch3"
+            },
+            {
+                "dialogueMessage": "Go fool someone else you zombie",
+                "branch": null
+            },
+            {
+                "dialogueMessage": "I don't really know",
+                "branch": "branch2"
+            }
         ]
     },
-    "branch2":
-    {
-        "speaker" : "Enemy",
-        "dialogueMessages":
-        [
-            {"dialogueMessage": "question4branch3", "branch": "branch3"},
-            {"dialogueMessage": "question5branch3", "branch": "branch3"}
+    "branch2": {
+        "speaker": "Enemy",
+        "dialogueMessages": [
+            {
+                "dialogueMessage": "It's a limited edition model",
+                "branch": "branch4"
+            },
+            {
+                "dialogueMessage": "It really fits your eyes",
+                "branch": "branch4"
+            },
+            {
+                "dialogueMessage": "It's a last one - we won't be getting any more of these",
+                "branch": "branch4"
+            }
         ]
     },
-    "branch3":
-    {
-        "speaker" : "Player",
-        "dialogueMessages":
-        [
-            {"dialogueMessage": "answer4null", "branch": null}
+    "branch3": {
+        "speaker": "Enemy",
+        "dialogueMessages": [
+            {
+                "dialogueMessage": "Your lucky it's on sale!",
+                "branch": "branch5"
+            }
+        ]
+    },
+    "branch4": {
+        "speaker": "Player",
+        "dialogueMessages": [
+            {
+                "dialogueMessage": "I'm just watching",
+                "branch": null
+            },
+            {
+                "dialogueMessage": "U-uh... okay?",
+                "branch": "branch6"
+            },
+            {
+                "dialogueMessage": "No, thank you",
+                "branch": null
+            },
+            {
+                "dialogueMessage": "It's too expensive for me",
+                "branch": "branch3"
+            }
+        ]
+    },
+    "branch5": {
+        "speaker": "Player",
+        "dialogueMessages": [
+            {
+                "dialogueMessage": "U-uh... okay?",
+                "branch": "branch6"
+            },
+            {
+                "dialogueMessage": "No, thank you",
+                "branch": null
+            }
+        ]
+    },
+    "branch6": {
+        "speaker": "Enemy",
+        "dialogueMessages": [
+            {
+                "dialogueMessage": "Thanks for the transaction!",
+                "branch": null
+            },
+            {
+                "dialogueMessage": "You won't regret it!",
+                "branch": null
+            }
         ]
     }
 }

@@ -17,7 +17,6 @@ public class DialogueSpeaker : MonoBehaviour {
 
     private List<GameObject> listOfAnswers = new List<GameObject> ();
     private int currentID;
-    private bool playerTimeIsUp = false;
     private bool choosingMode = false;
 
     public event Action<DialogueMessage> OnAnswerConfirmed;
@@ -72,7 +71,6 @@ public class DialogueSpeaker : MonoBehaviour {
 
     IEnumerator WaitForAnswer (DialogueMessage[] arrayOfLines) {
         yield return new WaitForSeconds (defaultWaitTime);
-        playerTimeIsUp = true;
         confirmAnswer (arrayOfLines[UnityEngine.Random.Range (0, arrayOfLines.Length)]);
         Debug.Log ("Player's time is up!");
     }
@@ -117,6 +115,7 @@ public class DialogueSpeaker : MonoBehaviour {
                 listOfAnswers.Add (chosenButton);
             }
             StopCoroutine (WaitForAnswer (arrayOfLines));
+            currentID = 0;
         }
     }
 

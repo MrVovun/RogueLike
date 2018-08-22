@@ -566,6 +566,11 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 114971836378562386, guid: 8ed75bf5bf97d4e4f8881c74ae3ef0db,
+        type: 2}
+      propertyPath: defaultWaitTime
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ed75bf5bf97d4e4f8881c74ae3ef0db, type: 2}
   m_IsPrefabAsset: 0
@@ -625,7 +630,12 @@ Prefab:
     - target: {fileID: 114507809372402936, guid: 039f4ee64246a964b9230a3755c2c407,
         type: 2}
       propertyPath: charTime
-      value: 0.07
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 114507809372402936, guid: 039f4ee64246a964b9230a3755c2c407,
+        type: 2}
+      propertyPath: defaultWaitTime
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 039f4ee64246a964b9230a3755c2c407, type: 2}
